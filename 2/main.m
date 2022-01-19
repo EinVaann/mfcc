@@ -1,5 +1,6 @@
 clear
 clc
 
-getFile();
+showFigure('NguyenAmHuanLuyen\01MDA\a.wav');
+% getFile();
 

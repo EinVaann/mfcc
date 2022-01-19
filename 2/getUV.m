@@ -17,12 +17,13 @@ ste = ste./max(ste);
 %Xét ngưỡng
 UV = zeros(1,frameNumber);
 for index=1:frameNumber
-    if(ste(index)>0.0015)
+    if(ste(index)>0.015)
         UV(index)=1;
     end
 end
 
 %Lọc các khoảng lặng ngắn
+startPoint = 1;
 for index=2:frameNumber
     if (UV(index)>UV(index-1))
        startPoint = index;
@@ -36,9 +37,12 @@ for index=2:frameNumber
        end
    end
 end
-
-
-
+% hold on;
+% for index=2:frameNumber
+%     if((UV(index)~=UV(index-1)))
+%         plot([shiftingSizeS/fs*index shiftingSizeS/fs*index],[1 -1],'blue');
+%     end
+% end
 
 
 
