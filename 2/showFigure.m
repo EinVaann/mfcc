@@ -5,32 +5,11 @@ figure('Name',filename);
 subplot(311);
 plotSignalinTime(y,fs);
 
-UV = getUV(y,fs);
-
-frameSizeT = 0.025;
-frameSizeS = round(frameSizeT * fs);
-shiftingSizeT = 0.01;
-shiftingSizeS = round(shiftingSizeT*fs);
-left = 0;
-right = 0;
-for index=2:length(UV)
-    if((UV(index)~=UV(index-1)))
-        if left == 0
-            left = index;
-        else
-            right = index;
-        end
-    end
-end
-left = left*shiftingSizeS;
-right = right*shiftingSizeS;
-cutY = y(left:right);
-cutYsize = length(cutY);
-cutY = cutY(round(cutYsize/3):round(cutYsize/3*2));
+StableSignal = getStableSignal(y,fs);
 subplot(312);
-plot(cutY);
+plot(StableSignal);
 
-MfccVectors = v_melcepst(cutY, fs, 'E', 12, floor(3*log(fs)), 0.03*fs, 0.01*fs);
-mfccc = mean(MfccVectors);
+mfccVector = calMfcc(StableSignal,fs);
+[centralVector] = v_kmeans(mfccVector,5);
 subplot(313);
-plot(mfccc);
+plot(centralVector);
