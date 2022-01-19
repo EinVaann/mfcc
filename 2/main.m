@@ -1,8 +1,9 @@
 clear
 clc
 
-showFigure('e.wav');
-showFigure('a.wav');
-showFigure('i.wav');
-showFigure('u.wav');
-showFigure('o.wav');
+% showFigure('NguyenAmHuanLuyen\01MDA\a.wav');
+% showFigure('a.wav');
+% showFigure('i.wav');
+% showFigure('u.wav');
+% showFigure('o.wav');
+getFile();
