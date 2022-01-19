@@ -53,12 +53,10 @@ plot(cutY);
 % cutY1 = cutY.*hamming(length(cutY),'periodic');
 % S = abs(fft(cutY1,1024));
 
-win = hann(1024,"periodic");
-S = stft(cutY,"Window",win,"OverlapLength",512,"Centered",false);
-coeffs= mfcc(S,fs,'LogEnergy','Ignore');
+MfccVectors = v_melcepst(cutY, fs, 'E', 12, floor(3*log(fs)), 0.03*fs, 0.01*fs);
 
 subplot(313);
-plot(coeffs);
+plot(MfccVectors);
 % [m,n] = size(Sum);
 % mm = 1:m;
 % nn = 1:n;
