@@ -1,0 +1,16 @@
+function checking()
+ path='NguyenAmHuanLuyen';
+    
+    people= {'23MTL' '24FTL' '25MLM' '27MCM' '28MVN' '29MHN' '30FTN' '32MTP' '33MHP' '10MSD' '11MVD' '12FTD' '14FHH' '15MMH' '16FTH' '17MTH' '18MNK' '19MXK' '20MVK' '21MTL' '22MHL'};
+    vowel = {'a' 'e' 'i' 'o' 'u'};
+%     vowel = 'a';
+    
+    for j = 1: length(vowel)
+        data = cell(length(people),1);
+        for i = 1 : length(people)
+           filename = append(path,'\',people{i},'\',vowel{j},'.wav');
+           [y,fs] = audioread(filename);
+           StableSignal = getStableSignal(y,fs);
+           mfccVector = calMfcc(StableSignal,fs);
+        end
+   end

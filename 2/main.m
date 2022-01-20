@@ -1,6 +1,7 @@
 clear
 clc
 
-showFigure('NguyenAmHuanLuyen\01MDA\a.wav');
-% getFile();
+
+huanluyen = getFileHL();
+ratio = checking(huanluyen)
 
