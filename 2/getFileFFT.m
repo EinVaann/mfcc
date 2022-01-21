@@ -3,7 +3,7 @@ function  huanluyen = getFileFFT()
     
     people= {'01MDA' '02FVA' '03MAB' '04MHB' '05MVB' '06FTB' '07FTC' '08MLD' '09MPD' '10MSD' '11MVD' '12FTD' '14FHH' '15MMH' '16FTH' '17MTH' '18MNK' '19MXK' '20MVK' '21MTL' '22MHL'};
     vowel = {'a' 'e' 'i' 'o' 'u'};
-    
+    color={'blue' 'red' 'yellow' 'black' 'green'};
     huanluyen = cell(5,1);
     for j = 1: length(vowel)
         data = cell(length(people),1);
@@ -20,6 +20,9 @@ function  huanluyen = getFileFFT()
         end
         finalVector = finalVector./length(data);
         huanluyen{j} = finalVector;
-        subplot(5,1,j);
-        plot(finalVector.','blue');
-   end
+%         subplot(5,1,j);
+         hold on;
+        plot(finalVector.',color{j});
+        
+    end
+   legend('a','e','i','o','u');
