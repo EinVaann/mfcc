@@ -3,24 +3,27 @@ function  huanluyen = getFileHL()
     
     people= {'01MDA' '02FVA' '03MAB' '04MHB' '05MVB' '06FTB' '07FTC' '08MLD' '09MPD' '10MSD' '11MVD' '12FTD' '14FHH' '15MMH' '16FTH' '17MTH' '18MNK' '19MXK' '20MVK' '21MTL' '22MHL'};
     vowel = {'a' 'e' 'i' 'o' 'u'};
-%     vowel = 'a';
-    
+    color={'blue' 'red' 'yellow' 'black' 'green'};
+      
+    NumCoeffs = 13;
+    NumCluster = 1;
+
     huanluyen = cell(5,1);
     for j = 1: length(vowel)
-        data = cell(length(people),1);
+        data = zeros(length(people),NumCoeffs);
         for i = 1 : length(people)
            filename = append(path,'\',people{i},'\',vowel{j},'.wav');
            [y,fs] = audioread(filename);
            StableSignal = getStableSignal(y,fs);
-%            mfccVector = calMfcc(StableSignal,fs);
-           data{i} = mfccVector;
+           mfccVectors = v_melcepst(StableSignal, fs, 'E', NumCoeffs-1, floor(3*log(fs)), 0.03*fs, 0.01*fs);
+           mfccVector = mean(mfccVectors);
+            data(i,:) = mfccVector;
         end
-        finalVector = zeros(size(data{1}));
-        for i = 1:length(data)
-            finalVector = finalVector + data{i};
-        end
-        finalVector = finalVector./length(data);
+
+        finalVector = v_kmeans(data,NumCluster);
         huanluyen{j} = finalVector;
-        subplot(5,1,j);
-        plot(finalVector.','blue');
-   end
+        hold on;
+        plot(finalVector.',color{j});
+        
+    end
+   legend('a','e','i','o','u');

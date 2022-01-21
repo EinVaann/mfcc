@@ -6,21 +6,17 @@ function  huanluyen = getFileFFT()
     color={'blue' 'red' 'yellow' 'black' 'green'};
     huanluyen = cell(5,1);
     for j = 1: length(vowel)
-        data = cell(length(people),1);
+          data = zeros(length(people),512);
         for i = 1 : length(people)
            filename = append(path,'\',people{i},'\',vowel{j},'.wav');
            [y,fs] = audioread(filename);
            StableSignal = getStableSignal(y,fs);
            mfccVector = callFFT(StableSignal,fs,0.03,0.01);
-           data{i} = mfccVector;
+            data(i,:) = mfccVector;
         end
-        finalVector = zeros(size(data{1}));
-        for i = 1:length(data)
-            finalVector = finalVector + data{i};
-        end
-        finalVector = finalVector./length(data);
+        finalVector = mean(data);
         huanluyen{j} = finalVector;
-%         subplot(5,1,j);
+        
          hold on;
         plot(finalVector.',color{j});
         

@@ -3,16 +3,17 @@ function fftVector = callFFT(StableSignal,fs, frameTime, shiftTime)
        frameShift = shiftTime*fs;
        L = length(StableSignal);
        numOfFrame = floor((L-frameSize+frameShift)/frameShift);
-       S=zeros(512,1);
+       S1= zeros(numOfFrame,512);
        for i=1: numOfFrame
-           range = (i-1)*(frameShift) + 1:i*(frameSize)-(i-1)*(frameSize-frameShift); 
+           range = (i-1)*(frameShift) + 1:min(((i-1)*frameShift + 1 +frameSize),length(StableSignal)); 
            frame=StableSignal(range);
            framefft=abs(fft(frame,1024));
-           framefft=10*log10(framefft);
-           framefft1=framefft(1:512);
-           S=S+framefft1;
+%            framefft=10*log10(framefft);
+           framefft1=framefft(1:length(framefft)/2);
+           S1(i,:) = framefft1.';
        end
-       fftVector=S/numOfFrame;
+       fftVector = mean(S1);
+
            
        
 

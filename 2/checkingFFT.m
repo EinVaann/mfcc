@@ -10,7 +10,11 @@ function confusionMatr = checkingFFT(huanluyen)
     for j = 1: length(vowel)
         for i = 1 : length(people)
            filename = append(path,'\',people{i},'\',vowel{j},'.wav');
-           detectedVowel = detectVowelFFT(filename,huanluyen);
+               [y,fs] = audioread(filename);
+           StableSignal = getStableSignal(y,fs);
+            fftVector = callFFT(StableSignal,fs,0.03,0.01);
+           detectedVowel = detectVowel(fftVector,huanluyen);
+%            detectedVowel = detectVowelFFT(filename,huanluyen);
            confusionMatr(j,detectedVowel) = confusionMatr(j,detectedVowel)+1;
         end
     end
