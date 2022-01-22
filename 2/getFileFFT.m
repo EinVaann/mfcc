@@ -22,3 +22,5 @@ function  huanluyen = getFileFFT()
         
     end
    legend('a','e','i','o','u');
+
+   title('Vectors FFT with N = 512');

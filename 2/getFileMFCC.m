@@ -24,3 +24,4 @@ function  huanluyen = getFileMFCC(NumCoeffs,NumCluster)
         
     end
    legend('a','e','i','o','u');
+   title(append('Vectors MFCC with N =',string(NumCoeffs)));
